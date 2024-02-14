@@ -1,8 +1,9 @@
 #include <torch/script.h>
 #include <torch/torch.h>
 #include <iostream>
-#include "opencv2/imgcodecs.hpp"
-#include "opencv2/highgui.hpp"
+#include <opencv2/imgcodecs.hpp>
+#include <opencv2/opencv.hpp>
+#include <opencv2/highgui.hpp>
 #include "utils/utils.h"
 
 // fixed dimension
@@ -18,14 +19,20 @@ using namespace std;
 int main()
 {
     // declare the variables that's being used in the program
-    torch::jit::script::Module module; // initialize the model
-    torch::Tensor result;
-    torch::Tensor output_mask = torch::zeros({VID_HEIGHT, VID_WIDTH, 3});
+    torch::jit::script::Module module; // torch jit model
+    torch::Tensor output_mask = torch::zeros({VID_HEIGHT, VID_WIDTH, 3}); // the tensor outputs
+    torch::Tensor results;
+    auto device = torch::Device("cpu");
+
+    // fps variables
+    double start_time, current_time;
+    int frames = 0;
+    double fps;
 
     // Load the model
     try
     {
-        module = torch::jit::load(MODEL_PATH);
+        module = torch::jit::load(MODEL_PATH, device);
         module.eval();
     }
     catch (const c10::Error& e)
@@ -54,17 +61,22 @@ int main()
     // naming the camera feed window
     string window_name = "My camera feed";
     namedWindow(window_name);
-    
+
+    // initiate the time
+    start_time = static_cast<double>(getTickCount());
+
     // Infinite loop on the camera feed, unless we press something
     while (cap.isOpened())
     {
+
+        // read-in the camera feed
         cap.read(frame);
 
         // perform inference on the camera feed;
         resize(frame, image, Size(VID_HEIGHT, VID_WIDTH), INTER_LINEAR);
         cvtColor(image, image, COLOR_BGR2RGB);
-        result = (module.forward({preprocessImg(image)}).toGenericDict().find("out")->value().toTensor().softmax(1)[0][15] > 0.7).to(torch::kFloat32);
-        output_mask.index_put_({torch::indexing::Slice(), torch::indexing::Slice(), -1}, result);
+        results = (module.forward({preprocessImg(image)}).toGenericDict().find("out")->value().toTensor().softmax(1)[0][15] > 0.7).to(torch::kFloat32);
+        output_mask.index_put_({torch::indexing::Slice(), torch::indexing::Slice(), -1}, results);
 
         // Create an OpenCV Mat object from the numpy array
         Mat image_mask(output_mask.size(0), output_mask.size(1), CV_32FC3, output_mask.data_ptr<float>());
@@ -72,9 +84,17 @@ int main()
         image_mask *= 255;
         image_mask.convertTo(image_mask, CV_8UC3);
 
+        // convert to RGB to BGR and mask the current feed with the segmentation
         cvtColor(image_mask, image_mask, COLOR_RGB2BGR);
-
         addWeighted(image_mask, 1, image, 1, 0, masked_img);
+
+        // compute the frames per second
+        current_time = static_cast<double>(getTickCount());
+        frames++;
+        fps = frames / ((current_time - start_time) / getTickFrequency());
+        
+        // display fps
+        cv::putText(masked_img, "FPS: " + to_string(fps), Point(10, 30), FONT_HERSHEY_SIMPLEX, 1, Scalar(0, 255, 0), 2);
 
         // Display the image
         imshow("Semantic Segmentation Predictions", masked_img);
