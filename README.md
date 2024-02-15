@@ -1,5 +1,5 @@
 # Object Segmentation
-Deployment has been the biggest bottleneck for large language models. I decided to explore two frameworks used for deploying machine learning models; ONNX Runtime and Torch Script. I exported an object segmentation model from TorchHub and export them to the respective frameworks. I compared their FPS during runtime and found that ONNX Runtime is the winner with an average of 18 FPS compared to Torchscript's 4 FPS on the Apple M1 Silicon Chip.
+Deployment has been the biggest bottleneck for large language models. I decided to explore two frameworks used for deploying machine learning models; ONNX Runtime and Torch Script. I exported an object segmentation model from TorchHub and export them to the respective frameworks. I compared their FPS during runtime and found that ONNX Runtime is the winner with an average of 14-18 FPS compared to Torchscript's 4-6 FPS on the Apple M1 Silicon Chip.
 
 ## Deployment Frameworks
 ML deployment frameworks in general has aimed to make ML algorithms optimized for a specific hardware. A computational graph is created so the framework can optimize the model by eliminating redundant and fusing operations to reduce computational and memory costs. Here are some videos explaining the two deployment frameworks used for this project.
@@ -38,7 +38,7 @@ cmake --build . --config Release
 ```
 
 ## Results
-The contrast is night and day. The Torchscript application is significantly slower than the ONNX Runtime application. On the left is the ONNX Runtime Framework running the LRSAPP Object Segmentation model with 14 FPS and on the right is the Torchscript framework deploying the same model with 4 FPS.
+The contrast is night and day. The Torchscript application is significantly slower than the ONNX Runtime application. On the left is the ONNX Runtime Framework running the LRSAPP Object Segmentation model with 14-18 FPS and on the right is the Torchscript framework deploying the same model with 4-6 FPS.
 <p align="center">
   <img src="assets/onnx_model_example.png" title="ONNX Model Demo" width=224 height=224/>
   <img src="assets/torchscript_model_example.png" title="Torchscript Model Demo" width=224 height=224/>
