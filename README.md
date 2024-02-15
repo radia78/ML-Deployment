@@ -6,8 +6,7 @@ ML deployment frameworks in general has aimed to make ML algorithms optimized fo
 
 [![Torchscript Framework Explained:](http://i3.ytimg.com/vi/2awmrMRf0dA/hqdefault.jpg)](https://www.youtube.com/watch?v=2awmrMRf0dA&ab_channel=PyTorch)
 
-ONNX Runtime Framework Explained:
-[![Torchscript Framework Explained:](http://i3.ytimg.com/vi/Ij5MoUnLQ0E/hqdefault.jpg)](https://www.youtube.com/watch?v=Ij5MoUnLQ0E&t=2109s&ab_channel=MicrosoftResearch)
+[![ONNX Runtime Framework Explained:](http://i3.ytimg.com/vi/Ij5MoUnLQ0E/hqdefault.jpg)](https://www.youtube.com/watch?v=Ij5MoUnLQ0E&t=2109s&ab_channel=MicrosoftResearch)
 
 ### Torchscript vs ONNX Runtime
 The main difference between the two frameworks comes down to hardware acceleration. ONNX Runtime has an additional step where the framework partitions the computational graph into sub-graphs and assign matching hardware accelerators to further optimize the model. In addition, the ONNX Runtime tensors are materialized for the single-purpose of inferencing, you can't do additional operations on the tensors making it somewhat tedious to parse results or perform something like softmax over a specific dimension. On the other hand, Torch tensors are loaded with functionalities but at the sacrifice of computational efficiency.
