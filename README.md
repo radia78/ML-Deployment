@@ -39,9 +39,7 @@ cmake --build . --config Release
 
 ## Results
 The contrast is night and day. The Torchscript application is significantly slower than the ONNX Runtime application.
-<p align="left">
+<p align="center">
   <img src="assets/onnx_model_example.png" title="ONNX Model Demo" width=224 height=224/>
-</p>
-<p align="right">
   <img src="assets/torchscript_model_example.png" title="Torchscript Model Demo" width=224 height=224/>
 </p>
