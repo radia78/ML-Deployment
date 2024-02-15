@@ -33,7 +33,7 @@ cmake --build . --config Release
 To build the Torchscript version:
 ```
 cd libtorch && mkdir build && cd build
-cmake -DCMAKE_PREFIX_PATH='import torch;print(torch.utils.cmake_prefix_path)'` ..
+cmake -DCMAKE_PREFIX_PATH=`python3 -c 'import torch;print(torch.utils.cmake_prefix_path)'`  ..
 cmake --build . --config Release
 ```
 
