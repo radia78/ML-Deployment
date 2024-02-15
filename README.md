@@ -4,8 +4,14 @@ Deployment has been the biggest bottleneck for large language models. I decided 
 ## Deployment Frameworks
 ML deployment frameworks in general has aimed to make ML algorithms optimized for a specific hardware. A computational graph is created so the framework can optimize the model by eliminating redundant and fusing operations to reduce computational and memory costs.
 
+Torchscript Framework Explained:
+<iframe width="560" height="315" src="https://www.youtube.com/watch?v=2awmrMRf0dA&ab_channel=PyTorch" frameborder="0" allowfullscreen></iframe>
+
+ONNX Runtime Framework Explained:
+<iframe width="560" height="315" src="https://www.youtube.com/watch?v=Ij5MoUnLQ0E&t=2084s&ab_channel=MicrosoftResearch" frameborder="0" allowfullscreen></iframe>
+
 ### Torchscript vs ONNX Runtime
-The main difference between the two frameworks comes down to hardware acceleration. ONNX Runtime has an additional step where the framework partitions the computational graph into sub-graphs and assign matching hardware accelerators to further optimize the model. In addition, the ONNX Runtime tensors are materialized for the single-purpose of inferencing, you can't do additional operations on the tensors making it somewhat tedious to parse results or perform something like softmax over a specific dimension. On the other hand, Torch tensors are loaded with functionalities but at the sacrifice of memory.
+The main difference between the two frameworks comes down to hardware acceleration. ONNX Runtime has an additional step where the framework partitions the computational graph into sub-graphs and assign matching hardware accelerators to further optimize the model. In addition, the ONNX Runtime tensors are materialized for the single-purpose of inferencing, you can't do additional operations on the tensors making it somewhat tedious to parse results or perform something like softmax over a specific dimension. On the other hand, Torch tensors are loaded with functionalities but at the sacrifice of computational efficiency.
 
 ## Prerequisites
 The required libraries for this projects are:
