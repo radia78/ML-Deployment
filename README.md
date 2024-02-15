@@ -38,7 +38,7 @@ cmake --build . --config Release
 ```
 
 ## Results
-The contrast is night and day. The Torchscript application is significantly slower than the ONNX Runtime application.
+The contrast is night and day. The Torchscript application is significantly slower than the ONNX Runtime application. On the left is the ONNX Runtime Framework running the LRSAPP Object Segmentation model with 14 FPS and on the right is the Torchscript framework deploying the same model with 4 FPS.
 <p align="center">
   <img src="assets/onnx_model_example.png" title="ONNX Model Demo" width=224 height=224/>
   <img src="assets/torchscript_model_example.png" title="Torchscript Model Demo" width=224 height=224/>
