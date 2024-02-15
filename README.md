@@ -4,7 +4,7 @@ Deployment has been the biggest bottleneck for large language models. I decided 
 ## Deployment Frameworks
 ML deployment frameworks in general has aimed to make ML algorithms optimized for a specific hardware. A computational graph is created so the framework can optimize the model by eliminating redundant and fusing operations to reduce computational and memory costs.
 
-[![Torchscript Framework Explained:](https://www.youtube.com/watch?v=2awmrMRf0dA&ab_channel=PyTorch/0.jpg)](https://www.youtube.com/watch?v=2awmrMRf0dA&ab_channel=PyTorch)
+[![Torchscript Framework Explained:](http://i3.ytimg.com/vi/2awmrMRf0dA/hqdefault.jpg)](https://www.youtube.com/watch?v=2awmrMRf0dA&ab_channel=PyTorch)
 
 ONNX Runtime Framework Explained:
 <iframe width="560" height="315" src="https://www.youtube.com/watch?v=Ij5MoUnLQ0E&t=2084s&ab_channel=MicrosoftResearch" frameborder="0" allowfullscreen></iframe>
