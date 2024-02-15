@@ -64,7 +64,7 @@ int main()
         fps = 1 / ((current_time - start_time) / getTickFrequency());
         
         // display fps
-        cv::putText(maskedImage, "FPS: " + to_string(fps), Point(10, 30), FONT_HERSHEY_SIMPLEX, 1, Scalar(0, 255, 0), 2);
+        cv::putText(maskedImage, "FPS: " + to_string(fps), Point(10, 30), FONT_HERSHEY_SIMPLEX, 0.7, Scalar(0, 255, 0), 2);
 
         // Display the image
         imshow("Semantic Segmentation Predictions", maskedImage);
