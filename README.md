@@ -2,7 +2,7 @@
 Deployment has been the biggest bottleneck for large language models. I decided to explore two frameworks used for deploying machine learning models; ONNX Runtime and Torch Script. I exported an object segmentation model from TorchHub and export them to the respective frameworks. I compared their FPS during runtime and found that ONNX Runtime is the winner with an average of 18 FPS compared to Torchscript's 4 FPS on the Apple M1 Silicon Chip.
 
 ## Deployment Frameworks
-ML deployment frameworks in general has aimed to make ML algorithms optimized for a specific hardware. A computational graph is created so the framework can optimize the model by eliminating redundant and fusing operations to reduce computational and memory costs.
+ML deployment frameworks in general has aimed to make ML algorithms optimized for a specific hardware. A computational graph is created so the framework can optimize the model by eliminating redundant and fusing operations to reduce computational and memory costs. Here are some videos explaining the two deployment frameworks used for this project.
 
 [![Torchscript Framework Explained:](http://i3.ytimg.com/vi/2awmrMRf0dA/hqdefault.jpg)](https://www.youtube.com/watch?v=2awmrMRf0dA&ab_channel=PyTorch)
 
