@@ -14,14 +14,16 @@ cv::Mat PersonSegmentator::Inference(const cv::Mat& frame)
 {
     torch::Tensor input, output;
     input = CreateTensorFromImage(frame);
-    output = (mModule->forward({input}).toGenericDict().find("out")->value().toTensor().softmax(1)[0][15] > 0.5).to(torch::kFloat32);
+    output = (mModule->forward({input}).toGenericDict().find("out")->value().toTensor().softmax(1)[0][15] >= 0.7).to(torch::kFloat32);
     
     return CreateImageFromTensor(output);
 }
 
 torch::Tensor PersonSegmentator::CreateTensorFromImage(const cv::Mat& frame)
 {
-    cv::cvtColor(frame, frame, cv::COLOR_BGR2RGB);
+    cv::Mat imageRGB, scaledImage;
+    cv::cvtColor(frame, imageRGB, cv::COLOR_BGR2RGB);
+    imageRGB.convertTo(scaledImage, CV_32F, 1.0f / 255.0f);
     torch::Tensor tensorImage = torch::from_blob(frame.data, {frame.rows, frame.cols, 3}, torch::kByte);
     tensorImage = tensorImage.permute({2, 0, 1});
     tensorImage = tensorImage.div(255);

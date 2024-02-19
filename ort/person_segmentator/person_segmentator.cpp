@@ -115,7 +115,8 @@ cv::Mat PersonSegmentator::CreateImageFromTensor(const float* floatarr)
         {
             // Only append the data for the first channel
             int j = i / 3;
-            imgVec.emplace_back(round(floatarr[15 * mInputDims[2] * mInputDims[3] + j]));
+            float value = (floatarr[15 * mInputDims[2] * mInputDims[3] + j]) >= 0.7 ? 1.0f : 0.0f;
+            imgVec.emplace_back(value);
         }
         else
         {
@@ -139,7 +140,7 @@ void PersonSegmentator::CreateTensorFromImage(const cv::Mat& img, std::vector<fl
     /******* Preprocessing *******/
     // Scale image pixels from [0 255] to [0, 1]
     cv::cvtColor(img, imageRGB, cv::COLOR_BGR2RGB);
-    img.convertTo(scaledImage, CV_32F, 1.0f / 255.0f);
+    imageRGB.convertTo(scaledImage, CV_32F, 1.0f / 255.0f);
     // Convert HWC to CHW
     cv::dnn::blobFromImage(scaledImage, preprocessedImage);
 
